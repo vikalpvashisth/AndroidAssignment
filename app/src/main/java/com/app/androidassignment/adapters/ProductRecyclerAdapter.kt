@@ -19,7 +19,7 @@ class ProductRecyclerAdapter(private val productRecyclerAdapterClick: ProductRec
     RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(), Filterable {
 
     private var productListData = ArrayList<Hits>() // original data received from server
-    private var filteredDataList = ArrayList<Hits>() // filtered data as per user search
+    var filteredDataList = ArrayList<Hits>() // filtered data as per user search
 
     // used to get data from activity after being received from the products api
     @SuppressLint("NotifyDataSetChanged")

@@ -1,6 +1,8 @@
 package com.app.androidassignment.ui.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -82,6 +84,18 @@ class MainActivity : AppCompatActivity(), ProductRecyclerAdapterClick {
     private fun initializeSearchListener() {
         mainBinding.productSearchView.addTextChangedListener {
             productRecyclerAdapter.filter.filter(it.toString())
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                if (productRecyclerAdapter.filteredDataList.isEmpty()) {
+                    mainBinding.noConnectionView.visibility = View.VISIBLE
+                    mainBinding.recyclerView.visibility = View.GONE
+                    mainBinding.noConnectionView.text = getString(R.string.product_not_found)
+                } else {
+                    mainBinding.noConnectionView.visibility = View.GONE
+                    mainBinding.recyclerView.visibility = View.VISIBLE
+                    mainBinding.noConnectionView.text =
+                        getString(R.string.oops_internet_error_please_connect_to_the_internet)
+                }
+            }, 500)
         }
     }
 
